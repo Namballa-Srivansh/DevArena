@@ -44,7 +44,8 @@ const problemSchema = new mongoose.Schema<IProblem>({
             values: ["Easy", "Medium", "Hard"],
             message: "Invalid difficulty level",
         }, 
-        required: true 
+        required: true, 
+        default: "Easy"
     },
     editorial: { 
         type: String, 
