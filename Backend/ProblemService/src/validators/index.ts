@@ -12,7 +12,7 @@ export const validateRequestBody = (schema: AnyZodObject) => {
         try {
 
             logger.info("Validating request body");
-            await schema.parseAsync(req.body);
+            req.body = await schema.parseAsync(req.body);
             logger.info("Request body is valid");
             next();
 
@@ -55,3 +55,20 @@ export const validateQueryParams = (schema: AnyZodObject) => {
     }
 }
 
+export const validateRequestParams = (schema: AnyZodObject) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        try {
+
+            await schema.parseAsync(req.params);
+            next();
+
+        } catch (error) {
+            res.status(400).json({
+                message: "Invalid request params",
+                success: false,
+                error: error
+            });
+            
+        }
+    }
+}

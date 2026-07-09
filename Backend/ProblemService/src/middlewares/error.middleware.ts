@@ -1,14 +1,26 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError } from "../utils/errors/app.error";
 
-export const appErrorHandler = (err: AppError, req: Request, res: Response, next: NextFunction) => {
+export const appErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
 
-    console.log(err);
+    console.error(err);
 
-    res.status(err.statusCode).json({
-        success: false,
-        message: err.message
-    });
+    if (err.statusCode) {
+        res.status(err.statusCode).json({
+            success: false,
+            message: err.message
+        });
+        return;
+    }
+
+    if (err.name === "ValidationError") {
+        res.status(400).json({
+            success: false,
+            message: err.message
+        });
+        return;
+    }
+
+    next(err);
 }
 
 export const genericErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {

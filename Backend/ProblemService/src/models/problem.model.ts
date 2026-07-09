@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export interface ITestcase {
     input: string;
@@ -12,7 +12,7 @@ export interface IProblem extends Document {
     createdAt: Date;
     updatedAt: Date;
     editorial: string;
-    testcases: ITestcase[];
+    testCases: ITestcase[];
 }
 
 const testSchema = new mongoose.Schema<ITestcase>({
@@ -51,8 +51,18 @@ const problemSchema = new mongoose.Schema<IProblem>({
         type: String, 
         trim: true
     },
-    testcases: [testSchema]
-}, { timestamps: true })
+    testCases: [testSchema]
+}, { 
+    timestamps: true,
+    toJSON: {
+        transform: (_, record: Record<string, any>) => {
+            delete record.__v;
+            record.id = record._id;
+            delete record._id;
+            return record;
+        }
+    }
+ })
 
 problemSchema.index({ title: 1 }, { unique: true });
 problemSchema.index({ difficulty: 1 });

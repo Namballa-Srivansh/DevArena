@@ -1,5 +1,5 @@
 import sanitize from "sanitize-html";
-import { CreateProblemDto, UpdateProblemDto } from "../dtos/problem.dto";
+import { CreateProblemDto, UpdateProblemDto } from "../validators/problem.validator";
 import { IProblem } from "../models/problem.model";
 import { IProblemRepository } from "../repositories/problem.repository";
 import { BadRequestError } from "../utils/errors/app.error";
@@ -21,6 +21,7 @@ export class ProblemService implements IProblemService {
 
     constructor(problemRepository: IProblemRepository) {
         this.problemRepository = problemRepository;
+        console.log("ProblemService constructor called")
     }
 
     async createProblem(problem: CreateProblemDto): Promise<IProblem> {

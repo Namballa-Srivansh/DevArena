@@ -11,6 +11,11 @@ export interface IProblemRepository {
 }
 
 export class ProblemRepository implements IProblemRepository {
+
+    constructor() {
+        console.log("ProblemRepository constructor called")
+    }
+
     async createProblem( problem: Partial<IProblem>): Promise<IProblem>{
         const newProblem = new Problem(problem);
         await newProblem.save();
