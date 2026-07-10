@@ -1,5 +1,7 @@
 import { getProblemById } from "../apis/problem.api";
+import logger from "../config/logger.config";
 import { ISubmission, SubmissionStatus } from "../models/submission.model";
+import { addSubmissionJob } from "../producers/submission.producer";
 import { ISubmissionRepository } from "../repositories/submission.repository";
 import { BadRequestError, NotFoundError } from "../utils/errors/app.error";
 
@@ -24,6 +26,13 @@ export class SubmissionService implements ISubmissionService{
         if(!submissionData.problemId) {
             throw new BadRequestError("Problem ID is required")
         }
+        if(!submissionData.code) {
+            throw new BadRequestError("Code is required")
+        }
+
+        if(!submissionData.language) {
+            throw new BadRequestError("Language is required")
+        }
 
         const problem = await getProblemById(submissionData.problemId);
         if(!problem){
@@ -35,7 +44,15 @@ export class SubmissionService implements ISubmissionService{
         const submission = await this.submissionRepository.create(submissionData);
 
         // submission to redis queue
-        
+        const jobId = await addSubmissionJob({
+            submissionId: submission.id,
+            problem,
+            code: submissionData.code,
+            language: submissionData.language
+        });
+
+        logger.info(`Submission job added: ${jobId}`);
+
         return submission;
     }
 

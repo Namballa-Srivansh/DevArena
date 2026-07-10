@@ -14,6 +14,7 @@ export enum SubmissionLanguage {
 }
 
 export interface ISubmission extends Document {
+    id: string;
     problemId: string;
     code: string;
     language: SubmissionLanguage;
