@@ -1,0 +1,71 @@
+import { getProblemById } from "../apis/problem.api";
+import { ISubmission, SubmissionStatus } from "../models/submission.model";
+import { ISubmissionRepository } from "../repositories/submission.repository";
+import { BadRequestError, NotFoundError } from "../utils/errors/app.error";
+
+export interface ISubmissionService {
+    createSubmission(submissionData: Partial<ISubmission>): Promise<ISubmission>;
+    getSubmissionById(id: string): Promise<ISubmission | null>;
+    getSubmissionsByProblemId(problemId: string): Promise<ISubmission[]>;
+    deleteSubmission(id: string): Promise<boolean>;
+    updateSubmissionStatus(id: string, status: SubmissionStatus): Promise<ISubmission | null>;
+}
+
+export class SubmissionService implements ISubmissionService{
+    
+    private submissionRepository: ISubmissionRepository;
+
+    constructor(submissionRepository: ISubmissionRepository){
+        this.submissionRepository = submissionRepository;
+    }
+
+    async createSubmission(submissionData: Partial<ISubmission>): Promise<ISubmission>{
+        // check if the problem exists
+        if(!submissionData.problemId) {
+            throw new BadRequestError("Problem ID is required")
+        }
+
+        const problem = await getProblemById(submissionData.problemId);
+        if(!problem){
+            throw new NotFoundError("Problem not found or something went wrong")
+        }
+
+        // add the submission payload to the db
+
+        const submission = await this.submissionRepository.create(submissionData);
+
+        // submission to redis queue
+        
+        return submission;
+    }
+
+    async getSubmissionById(id: string): Promise<ISubmission | null>{
+        const submission = await this.submissionRepository.findById(id);
+        if(!submission){
+            throw new Error(`Submission with id ${id} not found`);
+        }
+        return submission;
+    }
+
+    async getSubmissionsByProblemId(problemId: string): Promise<ISubmission[]>{
+        const submissions = await this.submissionRepository.findByProblemId(problemId);
+        return submissions;
+    }
+    
+    async deleteSubmission(id: string): Promise<boolean>{
+        const result = await this.submissionRepository.deleteById(id);
+        if(!result){
+            throw new Error(`Submission with id ${id} not found`);
+        }
+        return result;
+    }
+
+    async updateSubmissionStatus(id: string, status: SubmissionStatus): Promise<ISubmission | null>{
+        const submission = await this.submissionRepository.updateStatus(id, status);
+        if(!submission){
+            throw new Error(`Submission with id ${id} not found`);
+        }
+        return submission;
+    }
+    
+}
