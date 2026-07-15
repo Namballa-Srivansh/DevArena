@@ -10,7 +10,7 @@ export interface ISubmissionService {
     getSubmissionById(id: string): Promise<ISubmission | null>;
     getSubmissionsByProblemId(problemId: string): Promise<ISubmission[]>;
     deleteSubmission(id: string): Promise<boolean>;
-    updateSubmissionStatus(id: string, status: SubmissionStatus): Promise<ISubmission | null>;
+    updateSubmissionStatus(id: string, status: SubmissionStatus, submissionData?: any): Promise<ISubmission | null>;
 }
 
 export class SubmissionService implements ISubmissionService{
@@ -77,7 +77,7 @@ export class SubmissionService implements ISubmissionService{
         return result;
     }
 
-    async updateSubmissionStatus(id: string, status: SubmissionStatus): Promise<ISubmission | null>{
+    async updateSubmissionStatus(id: string, status: SubmissionStatus, submissionData?: any): Promise<ISubmission | null>{
         const submission = await this.submissionRepository.updateStatus(id, status);
         if(!submission){
             throw new Error(`Submission with id ${id} not found`);
