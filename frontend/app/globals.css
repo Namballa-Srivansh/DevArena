@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/* Force light variables and disable system dark mode media-query overrides */
+:root {
+  --background: #fafafa !important;
+  --foreground: #09090b !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fafafa !important;
+    --foreground: #09090b !important;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars for light theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e4e4e7;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4d4d8;
+}
+
+/* Monospace configuration for editor blocks */
+textarea, code, pre {
+  font-family: var(--font-geist-mono), monospace !important;
+}
