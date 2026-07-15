@@ -26,6 +26,13 @@ export async function runCode(options: RunCodeOptions) {
         memoryLimit: 1024 * 1024 * 1024, // 1GB
     });
 
+    if (!container) {
+        return {
+            status: "failed",
+            output: "Failed to create Docker container"
+        };
+    }
+
     let isTimeLimitExceeded = false;
     const timeLimitExceededTimeout = setTimeout(() => {
         console.log("Time limit exceeded");
