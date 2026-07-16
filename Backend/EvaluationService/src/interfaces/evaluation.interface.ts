@@ -8,9 +8,10 @@ export interface Problem {
     id: string;
     title: string;
     description: string;
-    diffculty: string;
-    editorial?: string;
-    testcases: TestCase[]
+    difficulty?: string;
+    diffculty?: string;
+    testCases?: TestCase[];
+    testcases?: TestCase[];
     createdAt: string;
     updatedAt: string;
 }

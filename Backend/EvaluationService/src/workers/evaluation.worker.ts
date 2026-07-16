@@ -13,8 +13,9 @@ async function setupEvaluationWorker() {
         
         try {
             const { submissionId, code, language, problem } = job.data as EvaluationJob;
+            const testCases = problem?.testCases || problem?.testcases;
             
-            if (!code || !language || !problem || !problem.testcases) {
+            if (!code || !language || !problem || !testCases) {
                 logger.error(`Invalid job payload for job ${job.id}`);
                 await updateSubmission(submissionId, "wrong_answer", { error: "Invalid submission data" });
                 return;
@@ -30,7 +31,7 @@ async function setupEvaluationWorker() {
             let responseStatus = "accepted";
             let lastOutput = "";
 
-            for (const testcase of problem.testcases) {
+            for (const testcase of testCases) {
                 logger.info(`Running testcase ${testcase._id} for submission ${submissionId}`);
                 
                 const result = await runCode({
