@@ -68,7 +68,7 @@ export default function CreateChallenge() {
     });
 
     if (result.success) {
-      setMessage({ type: "success", text: "Challenge forged successfully! Redirecting to Arena Lobby..." });
+      setMessage({ type: "success", text: "Problem created successfully! Redirecting to Problems..." });
       setTimeout(() => {
         router.push("/arena");
       }, 2000);

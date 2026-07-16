@@ -43,8 +43,8 @@ export default function ArenaLobbyClient({ initialChallenges }: ArenaLobbyClient
       {/* Title Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-6 border-b border-zinc-200">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl">Arena Lobby</h1>
-          <p className="text-zinc-500 text-sm mt-1">Select your combat code vector and challenge your compiler.</p>
+          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl">Problems</h1>
+          <p className="text-zinc-500 text-sm mt-1">Select a coding challenge and start solving.</p>
         </div>
 
         <button
@@ -53,7 +53,7 @@ export default function ArenaLobbyClient({ initialChallenges }: ArenaLobbyClient
           className="inline-flex items-center gap-1.5 self-start rounded-xl border border-zinc-200 bg-white hover:bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-650 transition-all active:scale-95 disabled:opacity-50 shadow-sm"
         >
           <RefreshCw className={cn("h-3.5 w-3.5", isRefreshing && "animate-spin")} />
-          Sync Core
+          Refresh
         </button>
       </div>
 

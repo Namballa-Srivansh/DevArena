@@ -10,8 +10,6 @@ export default async function Home() {
 
   // Mock stats
   const solvedCount = Math.min(Math.round(totalProblemsCount * 0.4), totalProblemsCount);
-  const rating = 1450;
-  const rank = "Senior Gladiator";
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
@@ -36,54 +34,21 @@ export default async function Home() {
               className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-700 transition-all active:scale-95"
             >
               <Swords className="h-4 w-4" />
-              Enter Arena Lobby
+              Browse Problems
             </Link>
             <Link
               href="/admin/create-challenge"
               className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 bg-white px-5 py-3 text-sm font-bold text-zinc-700 transition-all hover:bg-zinc-50 hover:text-zinc-900 shadow-sm"
             >
               <Terminal className="h-4 w-4" />
-              Forge Custom Challenge
+              Create Custom Problem
             </Link>
           </div>
         </div>
       </div>
 
       {/* Grid of Stats and Panels */}
-      <div className="grid gap-6 md:grid-cols-3">
-        {/* Profile Card */}
-        <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-400">Gladiator Profile</h3>
-              <span className="text-xs font-semibold text-emerald-650 flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Active
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-500 to-blue-600 text-white font-extrabold text-lg shadow-sm">
-                DA
-              </div>
-              <div>
-                <h4 className="font-bold text-zinc-900">Guest Gladiator</h4>
-                <p className="text-xs text-indigo-600 font-semibold tracking-wide uppercase">{rank}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-zinc-100 pt-4 mt-6 grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-xs text-zinc-400 font-medium">Gladiator Rating</p>
-              <p className="text-xl font-extrabold text-zinc-800 tracking-tight">{rating}</p>
-            </div>
-            <div>
-              <p className="text-xs text-zinc-400 font-medium">Global Rank</p>
-              <p className="text-xl font-extrabold text-zinc-650 tracking-tight">#24,192</p>
-            </div>
-          </div>
-        </div>
-
+      <div className="grid gap-6 md:grid-cols-2">
         {/* Telemetry Stats Card */}
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col justify-between">
           <div>
@@ -131,11 +96,11 @@ export default async function Home() {
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-400">Forge Studio</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-400">Problem Creator</h3>
               <Brain className="h-4 w-4 text-indigo-600" />
             </div>
             <p className="text-xs text-zinc-500 leading-relaxed font-sans">
-              Create coding puzzles with customized input/output test suites. Your custom challenges will appear instantly inside the Arena Lobby.
+              Create coding puzzles with customized input/output test suites. Your custom challenges will appear instantly inside the Problems list.
             </p>
           </div>
 
@@ -144,7 +109,7 @@ export default async function Home() {
               href="/admin/create-challenge"
               className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl border border-zinc-200 hover:border-indigo-500 bg-zinc-50 hover:bg-indigo-50/30 py-2.5 text-xs font-bold text-zinc-650 hover:text-indigo-600 transition-all shadow-sm"
             >
-              Open Studio Forge
+              Create a Problem
             </Link>
           </div>
         </div>

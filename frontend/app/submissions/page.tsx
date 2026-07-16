@@ -35,8 +35,8 @@ export default async function SubmissionsLog() {
           <Trophy className="h-5 w-5" />
         </div>
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl">Gladiator Audit Trail</h1>
-          <p className="text-zinc-500 text-sm mt-0.5">Historical ledger of all compiled telemetry payloads within DevArena.</p>
+          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-900 sm:text-3xl">Submission History</h1>
+          <p className="text-zinc-500 text-sm mt-0.5">View and track all code submissions across all coding challenges.</p>
         </div>
       </div>
 
